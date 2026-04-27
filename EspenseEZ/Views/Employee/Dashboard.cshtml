@@ -1,0 +1,484 @@
+﻿@{
+    ViewData["Title"] = "Employee Dashboard - ExpenseEZ";
+}
+
+<div class="employee-page">
+
+    <aside class="sidebar">
+        <div class="brand">
+            <img src="/images/logo.png" />
+        </div>
+
+        <a class="nav-link active">🏠 Dashboard</a>
+        <a class="nav-link">🧾 Submit Expense Claim</a>
+        <a class="nav-link">📎 Upload Receipts</a>
+        <a class="nav-link">🔍 Expense Status</a>
+        <a class="nav-link">💸 Reimbursement Status</a>
+        <a class="nav-link logout">🚪 Logout</a>
+    </aside>
+
+    <main class="main-content">
+
+        <header class="topbar">
+            <div>
+                <h1>Employee Dashboard</h1>
+                <p>Submit expenses, upload receipts, and track your reimbursement status.</p>
+            </div>
+
+            <div class="profile">
+                <span>🔔</span>
+                <div class="avatar">E</div>
+            </div>
+        </header>
+
+        <section class="cards">
+            <div class="stat-card">
+                <div class="icon blue">🧾</div>
+                <div>
+                    <h3>12</h3>
+                    <p>Total Claims</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="icon orange">⏳</div>
+                <div>
+                    <h3>4</h3>
+                    <p>Pending Claims</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="icon green">✅</div>
+                <div>
+                    <h3>7</h3>
+                    <p>Approved Claims</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="icon red">💸</div>
+                <div>
+                    <h3>₱8,450</h3>
+                    <p>Total Reimbursed</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="quick-actions">
+            <button>➕ Submit New Claim</button>
+            <button>📎 Upload Receipt</button>
+            <button>🔍 Track Status</button>
+        </section>
+
+        <section class="dashboard-grid">
+
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>My Recent Expense Claims</h2>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Claim No.</th>
+                            <th>Category</th>
+                            <th>Amount</th>
+                            <th>Date Submitted</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>CLM-001</td>
+                            <td>Transportation</td>
+                            <td>₱750</td>
+                            <td>April 10, 2026</td>
+                            <td><span class="status approved">Approved</span></td>
+                        </tr>
+                        <tr>
+                            <td>CLM-002</td>
+                            <td>Office Supplies</td>
+                            <td>₱1,250</td>
+                            <td>April 12, 2026</td>
+                            <td><span class="status pending">Pending</span></td>
+                        </tr>
+                        <tr>
+                            <td>CLM-003</td>
+                            <td>Meal Allowance</td>
+                            <td>₱500</td>
+                            <td>April 15, 2026</td>
+                            <td><span class="status processing">Processing</span></td>
+                        </tr>
+                        <tr>
+                            <td>CLM-004</td>
+                            <td>Travel Expense</td>
+                            <td>₱2,000</td>
+                            <td>April 18, 2026</td>
+                            <td><span class="status rejected">Rejected</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>Claim Progress</h2>
+                </div>
+
+                <div class="timeline">
+                    <div class="timeline-item done">
+                        <span></span>
+                        <div>
+                            <h4>Claim Submitted</h4>
+                            <p>Your claim was successfully submitted.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item done">
+                        <span></span>
+                        <div>
+                            <h4>Manager Review</h4>
+                            <p>Your claim is being reviewed by the manager.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item active-step">
+                        <span></span>
+                        <div>
+                            <h4>Finance Verification</h4>
+                            <p>Finance officer is checking your claim.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <span></span>
+                        <div>
+                            <h4>Reimbursement</h4>
+                            <p>Payment will be processed after approval.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        background: #f1f5f9;
+    }
+
+    .employee-page {
+        min-height: 100vh;
+        display: flex;
+    }
+
+    .sidebar {
+        width: 270px;
+        background: linear-gradient(180deg, #075bd1, #16a34a);
+        color: white;
+        padding: 25px 18px;
+        position: fixed;
+        height: 100vh;
+    }
+
+    .brand {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+        .brand img {
+            width: 190px;
+            background: white;
+            padding: 10px;
+            border-radius: 15px;
+        }
+
+    .nav-link {
+        display: block;
+        padding: 14px 16px;
+        margin-bottom: 10px;
+        border-radius: 12px;
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.25s;
+    }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: rgba(255,255,255,0.18);
+            transform: translateX(4px);
+        }
+
+    .logout {
+        margin-top: 35px;
+        background: rgba(255,255,255,0.12);
+    }
+
+    .main-content {
+        margin-left: 270px;
+        padding: 35px;
+        width: calc(100% - 270px);
+    }
+
+    .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+        .topbar h1 {
+            margin: 0;
+            color: #0f172a;
+            font-size: 32px;
+            font-weight: 800;
+        }
+
+        .topbar p {
+            color: #64748b;
+            margin-top: 8px;
+        }
+
+    .profile {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        font-size: 24px;
+    }
+
+    .avatar {
+        width: 45px;
+        height: 45px;
+        background: linear-gradient(135deg, #075bd1, #16a34a);
+        border-radius: 50%;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 800;
+    }
+
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 22px;
+        margin-bottom: 25px;
+    }
+
+    .stat-card {
+        background: white;
+        border-radius: 18px;
+        padding: 24px;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+    }
+
+        .stat-card h3 {
+            margin: 0;
+            font-size: 28px;
+            color: #0f172a;
+        }
+
+        .stat-card p {
+            margin: 4px 0 0;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+    .icon {
+        width: 55px;
+        height: 55px;
+        border-radius: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 26px;
+    }
+
+    .blue {
+        background: #dbeafe;
+    }
+
+    .green {
+        background: #dcfce7;
+    }
+
+    .orange {
+        background: #ffedd5;
+    }
+
+    .red {
+        background: #fee2e2;
+    }
+
+    .quick-actions {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+
+        .quick-actions button {
+            border: none;
+            background: linear-gradient(135deg, #075bd1, #16a34a);
+            color: white;
+            padding: 13px 18px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.25s;
+        }
+
+            .quick-actions button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 18px rgba(15, 23, 42, 0.18);
+            }
+
+    .dashboard-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 24px;
+    }
+
+    .panel {
+        background: white;
+        border-radius: 20px;
+        padding: 25px;
+        box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+    }
+
+    .panel-header h2 {
+        margin: 0 0 18px;
+        color: #0f172a;
+        font-size: 20px;
+        font-weight: 800;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th {
+        text-align: left;
+        color: #64748b;
+        padding: 13px;
+        background: #f8fafc;
+    }
+
+    td {
+        padding: 14px 13px;
+        border-bottom: 1px solid #e2e8f0;
+        color: #334155;
+    }
+
+    .status {
+        padding: 6px 12px;
+        border-radius: 30px;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .approved {
+        background: #dcfce7;
+        color: #15803d;
+    }
+
+    .pending {
+        background: #fef3c7;
+        color: #b45309;
+    }
+
+    .processing {
+        background: #dbeafe;
+        color: #1d4ed8;
+    }
+
+    .rejected {
+        background: #fee2e2;
+        color: #b91c1c;
+    }
+
+    .timeline {
+        position: relative;
+    }
+
+    .timeline-item {
+        display: flex;
+        gap: 14px;
+        margin-bottom: 22px;
+    }
+
+        .timeline-item span {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #cbd5e1;
+            margin-top: 4px;
+        }
+
+        .timeline-item.done span {
+            background: #16a34a;
+        }
+
+        .timeline-item.active-step span {
+            background: #075bd1;
+            box-shadow: 0 0 0 5px rgba(7, 91, 209, 0.15);
+        }
+
+        .timeline-item h4 {
+            margin: 0;
+            color: #0f172a;
+        }
+
+        .timeline-item p {
+            margin: 5px 0 0;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+    @@media (max-width: 1000px) {
+        .sidebar {
+            position: relative;
+            width: 100%;
+            height: auto;
+        }
+
+        .employee-page {
+            flex-direction: column;
+        }
+
+        .main-content {
+            margin-left: 0;
+            width: 100%;
+        }
+
+        .cards {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .dashboard-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @@media (max-width: 600px) {
+        .cards {
+            grid-template-columns: 1fr;
+        }
+
+        .quick-actions {
+            flex-direction: column;
+        }
+    }
+</style>

@@ -1,0 +1,255 @@
+﻿@{
+    ViewData["Title"] = "My Expense Records - ExpenseEZ";
+}
+
+<div class="employee-page">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="brand">
+            <img src="/images/logo.png" />
+        </div>
+
+        <a class="nav-link">🏠 Dashboard</a>
+        <a class="nav-link">🧾 Submit Expense</a>
+        <a class="nav-link active">📋 My Records</a>
+        <a class="nav-link">💸 Reimbursement</a>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main-content">
+
+        <header class="topbar">
+            <h1>My Expense Records</h1>
+            <p>View, edit, and manage your submitted expense claims.</p>
+        </header>
+
+        <div class="table-container">
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Claim No</th>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>CLM-001</td>
+                        <td>Travel Expense</td>
+                        <td>Transportation</td>
+                        <td>₱750</td>
+                        <td>Apr 10, 2026</td>
+                        <td><span class="status approved">Approved</span></td>
+                        <td>
+                            <a href="/Employee/Edit" class="btn edit">Edit</a>
+                            <button class="btn delete">Delete</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>CLM-002</td>
+                        <td>Office Supplies</td>
+                        <td>Supplies</td>
+                        <td>₱1,250</td>
+                        <td>Apr 12, 2026</td>
+                        <td><span class="status pending">Pending</span></td>
+                        <td>
+                            <a href="/Employee/Edit" class="btn edit">Edit</a>
+                            <button class="btn delete">Delete</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>CLM-003</td>
+                        <td>Client Meeting</td>
+                        <td>Food</td>
+                        <td>₱900</td>
+                        <td>Apr 15, 2026</td>
+                        <td><span class="status processing">Processing</span></td>
+                        <td>
+                            <a href="/Employee/Edit" class="btn edit">Edit</a>
+                            <button class="btn delete">Delete</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>CLM-004</td>
+                        <td>Flight Ticket</td>
+                        <td>Travel</td>
+                        <td>₱3,500</td>
+                        <td>Apr 18, 2026</td>
+                        <td><span class="status rejected">Rejected</span></td>
+                        <td>
+                            <a href="/Employee/Edit" class="btn edit">Edit</a>
+                            <button class="btn delete">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+    </main>
+
+</div>
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        background: #f1f5f9;
+    }
+
+    .employee-page {
+        display: flex;
+        min-height: 100vh;
+    }
+
+    .sidebar {
+        width: 260px;
+        background: linear-gradient(180deg, #075bd1, #16a34a);
+        color: white;
+        padding: 20px;
+        position: fixed;
+        height: 100vh;
+    }
+
+    .brand {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+        .brand img {
+            width: 180px;
+            background: white;
+            padding: 10px;
+            border-radius: 12px;
+        }
+
+    .nav-link {
+        display: block;
+        padding: 12px;
+        margin-bottom: 8px;
+        border-radius: 10px;
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+        .nav-link.active,
+        .nav-link:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+    .main-content {
+        margin-left: 260px;
+        padding: 30px;
+        width: 100%;
+    }
+
+    .topbar h1 {
+        margin: 0;
+        font-size: 28px;
+        font-weight: 800;
+    }
+
+    .topbar p {
+        color: #64748b;
+        margin-bottom: 25px;
+    }
+
+    .table-container {
+        background: white;
+        padding: 25px;
+        border-radius: 18px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th {
+        text-align: left;
+        padding: 14px;
+        background: #f8fafc;
+        color: #64748b;
+    }
+
+    td {
+        padding: 14px;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .status {
+        padding: 6px 12px;
+        border-radius: 30px;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .approved {
+        background: #dcfce7;
+        color: #15803d;
+    }
+
+    .pending {
+        background: #fef3c7;
+        color: #b45309;
+    }
+
+    .processing {
+        background: #dbeafe;
+        color: #1d4ed8;
+    }
+
+    .rejected {
+        background: #fee2e2;
+        color: #b91c1c;
+    }
+
+    .btn {
+        padding: 6px 12px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    .edit {
+        background: #dbeafe;
+        color: #1d4ed8;
+        margin-right: 5px;
+    }
+
+    .delete {
+        background: #fee2e2;
+        color: #b91c1c;
+        border: none;
+    }
+
+    @@media (max-width: 768px) {
+        .sidebar {
+            position: relative;
+            width: 100%;
+            height: auto;
+        }
+
+        .employee-page {
+            flex-direction: column;
+        }
+
+        .main-content {
+            margin-left: 0;
+        }
+    }
+</style>

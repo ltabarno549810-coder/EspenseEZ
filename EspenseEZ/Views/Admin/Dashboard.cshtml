@@ -1,0 +1,491 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard - ExpenseEZ";
+}
+
+<div class="admin-page">
+
+    <aside class="sidebar">
+        <div class="brand">
+            <img src="/images/logo.png" />
+        </div>
+
+        <a class="nav-link active">📊 Dashboard</a>
+        <a class="nav-link">👥 Manage Users</a>
+        <a class="nav-link">🏢 Departments</a>
+        <a class="nav-link">📂 Expense Categories</a>
+        <a class="nav-link">💰 Budget Limits</a>
+        <a class="nav-link">🧾 Audit Logs</a>
+        <a class="nav-link logout">🚪 Logout</a>
+    </aside>
+
+    <main class="main-content">
+
+        <header class="topbar">
+            <div>
+                <h1>Admin Dashboard</h1>
+                <p>Welcome back, Admin. Manage users, roles, departments, budgets, and system activity.</p>
+            </div>
+
+            <div class="admin-profile">
+                <span>🔔</span>
+                <div class="avatar">A</div>
+            </div>
+        </header>
+
+        <section class="cards">
+            <div class="stat-card">
+                <div class="icon blue">👥</div>
+                <div>
+                    <h3>128</h3>
+                    <p>Total Users</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="icon green">🏢</div>
+                <div>
+                    <h3>8</h3>
+                    <p>Departments</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="icon orange">📂</div>
+                <div>
+                    <h3>15</h3>
+                    <p>Expense Categories</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="icon red">🧾</div>
+                <div>
+                    <h3>342</h3>
+                    <p>Audit Logs</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="dashboard-grid">
+
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>User Management</h2>
+                    <button>Add User</button>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Role</th>
+                            <th>Department</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Louise Micko Tabarno</td>
+                            <td>Admin</td>
+                            <td>Finance</td>
+                            <td><span class="status active-status">Active</span></td>
+                        </tr>
+                        <tr>
+                            <td>Juan Dela Cruz</td>
+                            <td>Employee</td>
+                            <td>IT Department</td>
+                            <td><span class="status active-status">Active</span></td>
+                        </tr>
+                        <tr>
+                            <td>Maria Santos</td>
+                            <td>Manager</td>
+                            <td>Accounting</td>
+                            <td><span class="status pending-status">Pending</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>System Modules</h2>
+                </div>
+
+                <div class="module-list">
+                    <div>✅ User and Role Management</div>
+                    <div>✅ Budget Control</div>
+                    <div>✅ Expense Categories</div>
+                    <div>✅ Audit Trail and Activity Log</div>
+                    <div>✅ Dashboard and Analytics</div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>Recent Audit Logs</h2>
+                </div>
+
+                <div class="audit-item">
+                    <strong>Admin</strong> updated user role.
+                    <span>Today, 9:30 AM</span>
+                </div>
+
+                <div class="audit-item">
+                    <strong>Finance Officer</strong> processed reimbursement.
+                    <span>Today, 8:45 AM</span>
+                </div>
+
+                <div class="audit-item">
+                    <strong>Manager</strong> approved expense claim.
+                    <span>Yesterday, 4:20 PM</span>
+                </div>
+            </div>
+
+            <div class="panel budget-panel">
+                <div class="panel-header">
+                    <h2>Budget Overview</h2>
+                </div>
+
+                <div class="budget-row">
+                    <span>IT Department</span>
+                    <div class="progress"><div style="width: 75%;"></div></div>
+                    <small>75%</small>
+                </div>
+
+                <div class="budget-row">
+                    <span>Accounting</span>
+                    <div class="progress"><div style="width: 55%;"></div></div>
+                    <small>55%</small>
+                </div>
+
+                <div class="budget-row">
+                    <span>Operations</span>
+                    <div class="progress"><div style="width: 40%;"></div></div>
+                    <small>40%</small>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        background: #f1f5f9;
+    }
+
+    .admin-page {
+        min-height: 100vh;
+        display: flex;
+    }
+
+    .sidebar {
+        width: 270px;
+        background: linear-gradient(180deg, #073b8e, #0f5fc4);
+        color: white;
+        padding: 25px 18px;
+        position: fixed;
+        height: 100vh;
+        left: 0;
+        top: 0;
+    }
+
+    .brand {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+        .brand img {
+            width: 190px;
+            background: white;
+            padding: 10px;
+            border-radius: 15px;
+        }
+
+    .nav-link {
+        display: block;
+        padding: 14px 16px;
+        margin-bottom: 10px;
+        border-radius: 12px;
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.25s;
+    }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: rgba(255,255,255,0.18);
+            transform: translateX(4px);
+        }
+
+    .logout {
+        margin-top: 35px;
+        background: rgba(255,255,255,0.12);
+    }
+
+    .main-content {
+        margin-left: 270px;
+        padding: 35px;
+        width: calc(100% - 270px);
+    }
+
+    .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+        .topbar h1 {
+            color: #0f172a;
+            font-size: 32px;
+            margin: 0;
+            font-weight: 800;
+        }
+
+        .topbar p {
+            margin-top: 8px;
+            color: #64748b;
+        }
+
+    .admin-profile {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        font-size: 24px;
+    }
+
+    .avatar {
+        width: 45px;
+        height: 45px;
+        background: linear-gradient(135deg, #0f5fc4, #16a34a);
+        border-radius: 50%;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 800;
+    }
+
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 22px;
+        margin-bottom: 30px;
+    }
+
+    .stat-card {
+        background: white;
+        border-radius: 18px;
+        padding: 24px;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+    }
+
+        .stat-card h3 {
+            margin: 0;
+            font-size: 28px;
+            color: #0f172a;
+        }
+
+        .stat-card p {
+            margin: 4px 0 0;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+    .icon {
+        width: 55px;
+        height: 55px;
+        border-radius: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 26px;
+    }
+
+    .blue {
+        background: #dbeafe;
+    }
+
+    .green {
+        background: #dcfce7;
+    }
+
+    .orange {
+        background: #ffedd5;
+    }
+
+    .red {
+        background: #fee2e2;
+    }
+
+    .dashboard-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 24px;
+    }
+
+    .panel {
+        background: white;
+        border-radius: 20px;
+        padding: 25px;
+        box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+    }
+
+    .panel-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 18px;
+    }
+
+        .panel-header h2 {
+            margin: 0;
+            color: #0f172a;
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .panel-header button {
+            border: none;
+            background: linear-gradient(135deg, #0f5fc4, #16a34a);
+            color: white;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th {
+        text-align: left;
+        color: #64748b;
+        padding: 13px;
+        background: #f8fafc;
+    }
+
+    td {
+        padding: 14px 13px;
+        border-bottom: 1px solid #e2e8f0;
+        color: #334155;
+    }
+
+    .status {
+        padding: 6px 12px;
+        border-radius: 30px;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .active-status {
+        background: #dcfce7;
+        color: #15803d;
+    }
+
+    .pending-status {
+        background: #fef3c7;
+        color: #b45309;
+    }
+
+    .module-list div {
+        padding: 14px;
+        background: #f8fafc;
+        margin-bottom: 10px;
+        border-radius: 12px;
+        color: #334155;
+        font-weight: 600;
+    }
+
+    .audit-item {
+        padding: 14px;
+        background: #f8fafc;
+        border-radius: 12px;
+        margin-bottom: 12px;
+        color: #334155;
+    }
+
+        .audit-item span {
+            display: block;
+            color: #64748b;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+    .budget-row {
+        margin-bottom: 18px;
+    }
+
+        .budget-row span {
+            font-weight: 700;
+            color: #334155;
+        }
+
+    .progress {
+        height: 10px;
+        background: #e2e8f0;
+        border-radius: 30px;
+        overflow: hidden;
+        margin: 8px 0;
+    }
+
+        .progress div {
+            height: 100%;
+            background: linear-gradient(135deg, #0f5fc4, #16a34a);
+            border-radius: 30px;
+        }
+
+    .budget-row small {
+        color: #64748b;
+        font-weight: 700;
+    }
+
+    @@media (max-width: 1000px) {
+        .sidebar {
+            position: relative;
+            width: 100%;
+            height: auto;
+        }
+
+        .admin-page {
+            flex-direction: column;
+        }
+
+        .main-content {
+            margin-left: 0;
+            width: 100%;
+        }
+
+        .cards {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .dashboard-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @@media (max-width: 600px) {
+        .cards {
+            grid-template-columns: 1fr;
+        }
+
+        .topbar {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+        }
+    }
+</style>
