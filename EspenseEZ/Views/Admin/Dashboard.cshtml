@@ -7,6 +7,8 @@
     <aside class="sidebar">
         <div class="brand">
             <img src="/images/logo.png" />
+            <h2>ExpenseEZ</h2>
+            <p>Admin Panel</p>
         </div>
 
         <a class="nav-link active">📊 Dashboard</a>
@@ -15,6 +17,13 @@
         <a class="nav-link">📂 Expense Categories</a>
         <a class="nav-link">💰 Budget Limits</a>
         <a class="nav-link">🧾 Audit Logs</a>
+
+        <div class="sidebar-card">
+            <h4>System Status</h4>
+            <p>All modules are running smoothly.</p>
+            <span>Online</span>
+        </div>
+
         <a class="nav-link logout">🚪 Logout</a>
     </aside>
 
@@ -23,14 +32,26 @@
         <header class="topbar">
             <div>
                 <h1>Admin Dashboard</h1>
-                <p>Welcome back, Admin. Manage users, roles, departments, budgets, and system activity.</p>
+                <p>Manage users, roles, departments, budgets, and system activity.</p>
             </div>
 
             <div class="admin-profile">
-                <span>🔔</span>
+                <span class="notification">🔔</span>
+                <div class="profile-text">
+                    <strong>Admin</strong>
+                    <small>System Administrator</small>
+                </div>
                 <div class="avatar">A</div>
             </div>
         </header>
+
+        <section class="summary-banner">
+            <div>
+                <h2>ExpenseEZ System Overview</h2>
+                <p>Monitor platform activity, user records, financial setup, and audit trail in one centralized dashboard.</p>
+            </div>
+            <button>Generate Report</button>
+        </section>
 
         <section class="cards">
             <div class="stat-card">
@@ -38,6 +59,7 @@
                 <div>
                     <h3>128</h3>
                     <p>Total Users</p>
+                    <small>+12 this month</small>
                 </div>
             </div>
 
@@ -46,6 +68,7 @@
                 <div>
                     <h3>8</h3>
                     <p>Departments</p>
+                    <small>Active departments</small>
                 </div>
             </div>
 
@@ -53,7 +76,8 @@
                 <div class="icon orange">📂</div>
                 <div>
                     <h3>15</h3>
-                    <p>Expense Categories</p>
+                    <p>Categories</p>
+                    <small>Expense types</small>
                 </div>
             </div>
 
@@ -62,13 +86,14 @@
                 <div>
                     <h3>342</h3>
                     <p>Audit Logs</p>
+                    <small>Tracked actions</small>
                 </div>
             </div>
         </section>
 
         <section class="dashboard-grid">
 
-            <div class="panel">
+            <div class="panel user-panel">
                 <div class="panel-header">
                     <h2>User Management</h2>
                     <button>Add User</button>
@@ -102,6 +127,12 @@
                             <td>Accounting</td>
                             <td><span class="status pending-status">Pending</span></td>
                         </tr>
+                        <tr>
+                            <td>Carlos Reyes</td>
+                            <td>Finance Officer</td>
+                            <td>Operations</td>
+                            <td><span class="status active-status">Active</span></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -117,6 +148,7 @@
                     <div>✅ Expense Categories</div>
                     <div>✅ Audit Trail and Activity Log</div>
                     <div>✅ Dashboard and Analytics</div>
+                    <div>✅ Reimbursement Monitoring</div>
                 </div>
             </div>
 
@@ -139,6 +171,11 @@
                     <strong>Manager</strong> approved expense claim.
                     <span>Yesterday, 4:20 PM</span>
                 </div>
+
+                <div class="audit-item">
+                    <strong>Employee</strong> submitted new claim.
+                    <span>Yesterday, 2:15 PM</span>
+                </div>
             </div>
 
             <div class="panel budget-panel">
@@ -149,19 +186,25 @@
                 <div class="budget-row">
                     <span>IT Department</span>
                     <div class="progress"><div style="width: 75%;"></div></div>
-                    <small>75%</small>
+                    <small>75% used</small>
                 </div>
 
                 <div class="budget-row">
                     <span>Accounting</span>
                     <div class="progress"><div style="width: 55%;"></div></div>
-                    <small>55%</small>
+                    <small>55% used</small>
                 </div>
 
                 <div class="budget-row">
                     <span>Operations</span>
                     <div class="progress"><div style="width: 40%;"></div></div>
-                    <small>40%</small>
+                    <small>40% used</small>
+                </div>
+
+                <div class="budget-row">
+                    <span>Finance</span>
+                    <div class="progress"><div style="width: 68%;"></div></div>
+                    <small>68% used</small>
                 </div>
             </div>
 
@@ -172,10 +215,14 @@
 </div>
 
 <style>
+    * {
+        box-sizing: border-box;
+    }
+
     body {
         margin: 0;
         font-family: 'Segoe UI', Arial, sans-serif;
-        background: #f1f5f9;
+        background: #eef4fb;
     }
 
     .admin-page {
@@ -184,132 +231,237 @@
     }
 
     .sidebar {
-        width: 270px;
-        background: linear-gradient(180deg, #073b8e, #0f5fc4);
+        width: 285px;
+        background: linear-gradient(180deg, #052f73, #0f5fc4);
         color: white;
-        padding: 25px 18px;
+        padding: 22px;
         position: fixed;
         height: 100vh;
         left: 0;
         top: 0;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 8px 0 25px rgba(15, 23, 42, 0.18);
     }
 
     .brand {
         text-align: center;
-        margin-bottom: 30px;
+        margin-bottom: 25px;
     }
 
         .brand img {
-            width: 190px;
+            width: 165px;
             background: white;
             padding: 10px;
-            border-radius: 15px;
+            border-radius: 18px;
+            margin-bottom: 10px;
+        }
+
+        .brand h2 {
+            margin: 5px 0 0;
+            font-size: 24px;
+        }
+
+        .brand p {
+            margin: 3px 0 0;
+            opacity: 0.8;
+            font-size: 14px;
         }
 
     .nav-link {
         display: block;
         padding: 14px 16px;
-        margin-bottom: 10px;
-        border-radius: 12px;
+        margin-bottom: 9px;
+        border-radius: 14px;
         color: white;
         text-decoration: none;
-        font-weight: 600;
+        font-weight: 700;
         cursor: pointer;
         transition: 0.25s;
     }
 
         .nav-link:hover,
         .nav-link.active {
-            background: rgba(255,255,255,0.18);
-            transform: translateX(4px);
+            background: rgba(255,255,255,0.20);
+            transform: translateX(5px);
+        }
+
+    .sidebar-card {
+        background: rgba(255,255,255,0.16);
+        padding: 16px;
+        border-radius: 18px;
+        margin-top: auto;
+        margin-bottom: 15px;
+    }
+
+        .sidebar-card h4 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .sidebar-card p {
+            font-size: 13px;
+            opacity: 0.85;
+            margin: 8px 0 12px;
+        }
+
+        .sidebar-card span {
+            background: #22c55e;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
         }
 
     .logout {
-        margin-top: 35px;
-        background: rgba(255,255,255,0.12);
+        background: rgba(255,255,255,0.14);
     }
 
     .main-content {
-        margin-left: 270px;
-        padding: 35px;
-        width: calc(100% - 270px);
+        margin-left: 285px;
+        padding: 28px;
+        width: calc(100% - 285px);
     }
 
     .topbar {
+        background: white;
+        padding: 22px 25px;
+        border-radius: 22px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 30px;
+        margin-bottom: 22px;
+        box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
     }
 
         .topbar h1 {
             color: #0f172a;
-            font-size: 32px;
+            font-size: 31px;
             margin: 0;
-            font-weight: 800;
+            font-weight: 900;
         }
 
         .topbar p {
-            margin-top: 8px;
+            margin: 7px 0 0;
             color: #64748b;
         }
 
     .admin-profile {
         display: flex;
         align-items: center;
-        gap: 18px;
-        font-size: 24px;
+        gap: 14px;
     }
 
+    .notification {
+        background: #f1f5f9;
+        padding: 12px;
+        border-radius: 50%;
+        font-size: 20px;
+    }
+
+    .profile-text {
+        text-align: right;
+    }
+
+        .profile-text strong {
+            display: block;
+            color: #0f172a;
+        }
+
+        .profile-text small {
+            color: #64748b;
+        }
+
     .avatar {
-        width: 45px;
-        height: 45px;
+        width: 48px;
+        height: 48px;
         background: linear-gradient(135deg, #0f5fc4, #16a34a);
         border-radius: 50%;
         color: white;
         display: flex;
         justify-content: center;
         align-items: center;
-        font-weight: 800;
+        font-weight: 900;
+        font-size: 20px;
     }
+
+    .summary-banner {
+        background: linear-gradient(135deg, #0f5fc4, #16a34a);
+        color: white;
+        padding: 24px 28px;
+        border-radius: 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 22px;
+        box-shadow: 0 15px 30px rgba(15, 95, 196, 0.25);
+    }
+
+        .summary-banner h2 {
+            margin: 0;
+            font-size: 25px;
+        }
+
+        .summary-banner p {
+            margin: 8px 0 0;
+            opacity: 0.9;
+        }
+
+        .summary-banner button {
+            border: none;
+            background: white;
+            color: #0f5fc4;
+            padding: 12px 18px;
+            border-radius: 14px;
+            font-weight: 800;
+            cursor: pointer;
+        }
 
     .cards {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        gap: 22px;
-        margin-bottom: 30px;
+        gap: 18px;
+        margin-bottom: 22px;
     }
 
     .stat-card {
         background: white;
-        border-radius: 18px;
-        padding: 24px;
+        border-radius: 22px;
+        padding: 22px;
         display: flex;
         align-items: center;
-        gap: 18px;
+        gap: 16px;
         box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+        min-height: 125px;
     }
 
         .stat-card h3 {
             margin: 0;
-            font-size: 28px;
+            font-size: 30px;
             color: #0f172a;
         }
 
         .stat-card p {
-            margin: 4px 0 0;
+            margin: 3px 0;
+            color: #475569;
+            font-weight: 800;
+        }
+
+        .stat-card small {
             color: #64748b;
             font-weight: 600;
         }
 
     .icon {
-        width: 55px;
-        height: 55px;
-        border-radius: 15px;
+        width: 58px;
+        height: 58px;
+        border-radius: 18px;
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 26px;
+        font-size: 27px;
+        flex-shrink: 0;
     }
 
     .blue {
@@ -330,15 +482,21 @@
 
     .dashboard-grid {
         display: grid;
-        grid-template-columns: 2fr 1fr;
-        gap: 24px;
+        grid-template-columns: 1.6fr 1fr;
+        gap: 22px;
+        align-items: stretch;
     }
 
     .panel {
         background: white;
-        border-radius: 20px;
-        padding: 25px;
+        border-radius: 22px;
+        padding: 24px;
         box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+        min-height: 295px;
+    }
+
+    .user-panel {
+        min-height: 360px;
     }
 
     .panel-header {
@@ -352,42 +510,50 @@
             margin: 0;
             color: #0f172a;
             font-size: 20px;
-            font-weight: 800;
+            font-weight: 900;
         }
 
         .panel-header button {
             border: none;
             background: linear-gradient(135deg, #0f5fc4, #16a34a);
             color: white;
-            padding: 10px 14px;
-            border-radius: 10px;
-            font-weight: 700;
+            padding: 10px 15px;
+            border-radius: 12px;
+            font-weight: 800;
             cursor: pointer;
         }
 
     table {
         width: 100%;
         border-collapse: collapse;
+        overflow: hidden;
+        border-radius: 15px;
     }
 
     th {
         text-align: left;
-        color: #64748b;
-        padding: 13px;
-        background: #f8fafc;
+        color: #475569;
+        padding: 14px;
+        background: #f1f5f9;
+        font-size: 14px;
     }
 
     td {
-        padding: 14px 13px;
+        padding: 15px 14px;
         border-bottom: 1px solid #e2e8f0;
         color: #334155;
+        font-weight: 600;
+    }
+
+    tr:hover td {
+        background: #f8fafc;
     }
 
     .status {
-        padding: 6px 12px;
+        padding: 7px 13px;
         border-radius: 30px;
-        font-size: 13px;
-        font-weight: 700;
+        font-size: 12px;
+        font-weight: 900;
     }
 
     .active-status {
@@ -400,45 +566,52 @@
         color: #b45309;
     }
 
-    .module-list div {
-        padding: 14px;
-        background: #f8fafc;
-        margin-bottom: 10px;
-        border-radius: 12px;
-        color: #334155;
-        font-weight: 600;
+    .module-list {
+        display: grid;
+        gap: 11px;
     }
 
+        .module-list div {
+            padding: 14px;
+            background: #f8fafc;
+            border-left: 5px solid #0f5fc4;
+            border-radius: 14px;
+            color: #334155;
+            font-weight: 800;
+        }
+
     .audit-item {
-        padding: 14px;
+        padding: 15px;
         background: #f8fafc;
-        border-radius: 12px;
+        border-radius: 14px;
         margin-bottom: 12px;
         color: #334155;
+        border-left: 5px solid #16a34a;
     }
 
         .audit-item span {
             display: block;
             color: #64748b;
             font-size: 13px;
-            margin-top: 5px;
+            margin-top: 6px;
+            font-weight: 600;
         }
 
     .budget-row {
-        margin-bottom: 18px;
+        margin-bottom: 20px;
     }
 
         .budget-row span {
-            font-weight: 700;
+            font-weight: 900;
             color: #334155;
         }
 
     .progress {
-        height: 10px;
+        height: 12px;
         background: #e2e8f0;
         border-radius: 30px;
         overflow: hidden;
-        margin: 8px 0;
+        margin: 9px 0;
     }
 
         .progress div {
@@ -449,10 +622,10 @@
 
     .budget-row small {
         color: #64748b;
-        font-weight: 700;
+        font-weight: 800;
     }
 
-    @@media (max-width: 1000px) {
+    @@media (max-width: 1100px) {
         .sidebar {
             position: relative;
             width: 100%;
@@ -475,17 +648,32 @@
         .dashboard-grid {
             grid-template-columns: 1fr;
         }
+
+        .summary-banner {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+        }
     }
 
-    @@media (max-width: 600px) {
-        .cards {
-            grid-template-columns: 1fr;
+    @@media (max-width: 650px) {
+        .main-content {
+            padding: 18px;
         }
 
         .topbar {
             flex-direction: column;
             align-items: flex-start;
             gap: 15px;
+        }
+
+        .cards {
+            grid-template-columns: 1fr;
+        }
+
+        .admin-profile {
+            align-self: stretch;
+            justify-content: space-between;
         }
     }
 </style>
