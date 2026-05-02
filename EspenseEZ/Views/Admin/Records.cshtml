@@ -1,0 +1,187 @@
+﻿@using ExpenseEZ.Models
+@{
+    Layout = null;
+
+    var users = ViewBag.Users as List<User> ?? new List<User>();
+    var departments = ViewBag.Departments as List<Department> ?? new List<Department>();
+    var categories = ViewBag.Categories as List<Category> ?? new List<Category>();
+    var budgets = ViewBag.Budgets as List<Budget> ?? new List<Budget>();
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Display Records - ExpenseEZ</title>
+
+    <style>
+            body {
+                margin: 0;
+                font-family: 'Segoe UI', Arial, sans-serif;
+                background: #eef4fb;
+                color: #0f172a;
+            }
+
+            .page {
+                padding: 35px;
+            }
+
+            .topbar {
+                background: white;
+                padding: 24px;
+                border-radius: 22px;
+                margin-bottom: 24px;
+                box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+            }
+
+                .topbar p {
+                    color: #64748b;
+                    margin-top: 6px;
+                }
+
+            .panel {
+                background: white;
+                padding: 24px;
+                border-radius: 22px;
+                margin-bottom: 22px;
+                box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+            }
+
+            h2 {
+                margin-bottom: 16px;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            th {
+                background: #f1f5f9;
+                padding: 14px;
+                text-align: left;
+            }
+
+            td {
+                padding: 14px;
+                border-bottom: 1px solid #e2e8f0;
+                font-weight: 600;
+            }
+
+            a {
+                display: inline-block;
+                background: #0f5fc4;
+                color: white;
+                padding: 12px 16px;
+                border-radius: 12px;
+                text-decoration: none;
+                font-weight: 800;
+                margin-bottom: 20px;
+            }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+
+        <div class="topbar">
+            <h1>Display Records</h1>
+            <p>This page displays all saved database records from ExpenseEZ.</p>
+        </div>
+
+        <a href="/Admin/Dashboard">Back to Dashboard</a>
+
+        <div class="panel">
+            <h2>User Records</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Department</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var user in users)
+                    {
+                        <tr>
+                            <td>@user.Name</td>
+                            <td>@user.Role</td>
+                            <td>@user.Department</td>
+                            <td>@user.Status</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="panel">
+            <h2>Department Records</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Department Name</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var department in departments)
+                    {
+                        <tr>
+                            <td>@department.Name</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="panel">
+            <h2>Expense Category Records</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Category Name</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var category in categories)
+                    {
+                        <tr>
+                            <td>@category.Name</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="panel">
+            <h2>Budget Records</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Department</th>
+                        <th>Budget Amount</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var budget in budgets)
+                    {
+                        <tr>
+                            <td>@budget.Department</td>
+                            <td>₱@budget.Amount.ToString("N2")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</body>
+</html>

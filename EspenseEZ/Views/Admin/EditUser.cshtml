@@ -1,0 +1,137 @@
+﻿@using ExpenseEZ.Models
+@model ExpenseEZ.Models.User
+
+@{
+    Layout = null;
+    var departments = ViewBag.Departments as List<Department> ?? new List<Department>();
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit User - ExpenseEZ</title>
+
+    <style>
+            body {
+                margin: 0;
+                font-family: 'Segoe UI', Arial, sans-serif;
+                background: #eef4fb;
+            }
+
+            .page {
+                min-height: 100vh;
+                padding: 40px;
+            }
+
+            .card {
+                max-width: 850px;
+                margin: auto;
+                background: white;
+                padding: 30px;
+                border-radius: 24px;
+                box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+            }
+
+            h1 {
+                margin-bottom: 8px;
+                color: #0f172a;
+            }
+
+            p {
+                color: #64748b;
+                margin-bottom: 25px;
+            }
+
+            .form-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 18px;
+            }
+
+            input, select {
+                padding: 14px;
+                border-radius: 14px;
+                border: 1px solid #cbd5e1;
+                font-weight: 700;
+                background: #f8fafc;
+            }
+
+            .actions {
+                margin-top: 25px;
+                display: flex;
+                gap: 12px;
+            }
+
+            button, a {
+                border: none;
+                text-decoration: none;
+                padding: 12px 18px;
+                border-radius: 12px;
+                font-weight: 800;
+                cursor: pointer;
+            }
+
+            button {
+                background: linear-gradient(135deg, #0f5fc4, #16a34a);
+                color: white;
+            }
+
+            a {
+                background: #e2e8f0;
+                color: #0f172a;
+            }
+
+            @@media(max-width: 650px) {
+                .form-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .page {
+                    padding: 20px;
+                }
+            }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <div class="card">
+            <h1>Edit User</h1>
+            <p>Update user account information, role, department, and account status.</p>
+
+            <form method="post" action="/Admin/EditUser">
+                <input type="hidden" name="Id" value="@Model.Id" />
+
+                <div class="form-grid">
+                    <input name="Name" value="@Model.Name" placeholder="Full Name" required />
+
+                    <select name="Role">
+                        <option selected="@(Model.Role == "Admin")">Admin</option>
+                        <option selected="@(Model.Role == "Employee")">Employee</option>
+                        <option selected="@(Model.Role == "Manager")">Manager</option>
+                        <option selected="@(Model.Role == "Finance Officer")">Finance Officer</option>
+                    </select>
+
+                    <select name="Department">
+                        @foreach (var department in departments)
+                        {
+                            <option selected="@(Model.Department == department.Name)">@department.Name</option>
+                        }
+                    </select>
+
+                    <select name="Status">
+                        <option selected="@(Model.Status == "Active")">Active</option>
+                        <option selected="@(Model.Status == "Pending")">Pending</option>
+                        <option selected="@(Model.Status == "Inactive")">Inactive</option>
+                    </select>
+                </div>
+
+                <div class="actions">
+                    <button type="submit">Save Changes</button>
+                    <a href="/Admin/Dashboard">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

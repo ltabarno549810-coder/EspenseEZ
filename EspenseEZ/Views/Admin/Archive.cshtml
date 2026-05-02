@@ -1,0 +1,567 @@
+﻿@using ExpenseEZ.Models
+@{
+    Layout = null;
+
+    var search = ViewBag.Search as string ?? "";
+    var users = ViewBag.Users as List<User> ?? new List<User>();
+    var departments = ViewBag.Departments as List<Department> ?? new List<Department>();
+    var categories = ViewBag.Categories as List<Category> ?? new List<Category>();
+    var budgets = ViewBag.Budgets as List<Budget> ?? new List<Budget>();
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Archive - ExpenseEZ</title>
+
+    <style>
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                font-family: 'Segoe UI', Arial, sans-serif;
+                background: #eef4fb;
+                color: #0f172a;
+            }
+
+            .admin-page {
+                min-height: 100vh;
+                display: flex;
+            }
+
+            .sidebar {
+                width: 285px;
+                background: linear-gradient(180deg, #052f73, #0f5fc4);
+                color: white;
+                padding: 22px;
+                position: fixed;
+                height: 100vh;
+                left: 0;
+                top: 0;
+                display: flex;
+                flex-direction: column;
+                box-shadow: 8px 0 25px rgba(15, 23, 42, 0.18);
+                overflow: hidden;
+                z-index: 10;
+            }
+
+            .brand {
+                text-align: center;
+                margin-bottom: 25px;
+            }
+
+                .brand img {
+                    width: 165px;
+                    background: white;
+                    padding: 10px;
+                    border-radius: 18px;
+                    margin-bottom: 10px;
+                }
+
+                .brand h2 {
+                    font-size: 24px;
+                    margin-bottom: 3px;
+                    font-weight: 900;
+                }
+
+                .brand p {
+                    opacity: 0.85;
+                    font-size: 14px;
+                }
+
+            .nav-link {
+                display: block;
+                padding: 14px 16px;
+                margin-bottom: 9px;
+                border-radius: 14px;
+                color: white;
+                text-decoration: none;
+                font-weight: 700;
+                cursor: pointer;
+                transition: 0.25s;
+            }
+
+                .nav-link:hover,
+                .nav-link.active {
+                    background: rgba(255,255,255,0.20);
+                    transform: translateX(5px);
+                }
+
+            .sidebar-card {
+                background: rgba(255,255,255,0.16);
+                padding: 16px;
+                border-radius: 18px;
+                margin-top: auto;
+                margin-bottom: 15px;
+            }
+
+                .sidebar-card h4 {
+                    font-size: 16px;
+                }
+
+                .sidebar-card p {
+                    font-size: 13px;
+                    opacity: 0.85;
+                    margin: 8px 0 12px;
+                }
+
+                .sidebar-card span {
+                    background: #22c55e;
+                    color: white;
+                    padding: 6px 12px;
+                    border-radius: 20px;
+                    font-size: 12px;
+                    font-weight: 800;
+                }
+
+            .logout {
+                background: rgba(255,255,255,0.14);
+            }
+
+            .main-content {
+                margin-left: 285px;
+                padding: 28px;
+                width: calc(100% - 285px);
+            }
+
+            .topbar {
+                background: white;
+                padding: 22px 25px;
+                border-radius: 22px;
+                margin-bottom: 22px;
+                box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+            }
+
+                .topbar h1 {
+                    font-size: 31px;
+                    font-weight: 900;
+                }
+
+                .topbar p {
+                    margin-top: 7px;
+                    color: #64748b;
+                    font-weight: 600;
+                }
+
+            .search-box {
+                background: white;
+                padding: 20px;
+                border-radius: 18px;
+                margin-bottom: 22px;
+                box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+            }
+
+                .search-box form {
+                    display: flex;
+                    gap: 12px;
+                }
+
+            input {
+                flex: 1;
+                padding: 13px 14px;
+                border: 1px solid #cbd5e1;
+                border-radius: 14px;
+                font-weight: 700;
+                outline: none;
+                background: #f8fafc;
+            }
+
+                input:focus {
+                    border-color: #0f5fc4;
+                    background: white;
+                }
+
+            button,
+            .btn {
+                border: none;
+                text-decoration: none;
+                display: inline-block;
+                padding: 10px 15px;
+                border-radius: 12px;
+                font-weight: 800;
+                cursor: pointer;
+                color: white;
+                background: linear-gradient(135deg, #0f5fc4, #16a34a);
+            }
+
+            .restore {
+                background: #16a34a;
+            }
+
+            .danger {
+                background: #ef4444;
+            }
+
+            .reset {
+                background: #64748b;
+            }
+
+            .panel {
+                background: white;
+                border-radius: 22px;
+                padding: 24px;
+                box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+                margin-bottom: 22px;
+            }
+
+                .panel h2 {
+                    font-size: 20px;
+                    font-weight: 900;
+                    margin-bottom: 18px;
+                }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                border-radius: 15px;
+                overflow: hidden;
+            }
+
+            th {
+                text-align: left;
+                color: #475569;
+                padding: 14px;
+                background: #f1f5f9;
+                font-size: 14px;
+            }
+
+            td {
+                padding: 15px 14px;
+                border-bottom: 1px solid #e2e8f0;
+                color: #334155;
+                font-weight: 600;
+            }
+
+            tr:hover td {
+                background: #f8fafc;
+            }
+
+            .empty {
+                color: #64748b;
+                font-weight: 700;
+                background: #f8fafc;
+                padding: 15px;
+                border-radius: 14px;
+            }
+
+            .action-buttons {
+                display: flex;
+                gap: 8px;
+                flex-wrap: wrap;
+            }
+
+            .toast-overlay {
+                display: none;
+                position: fixed;
+                inset: 0;
+                background: rgba(15, 23, 42, 0.45);
+                z-index: 9999;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .toast-box {
+                width: 430px;
+                background: white;
+                padding: 28px;
+                border-radius: 22px;
+                box-shadow: 0 20px 50px rgba(15, 23, 42, 0.25);
+                animation: popIn 0.2s ease;
+            }
+
+                .toast-box h3 {
+                    margin-bottom: 10px;
+                    color: #0f172a;
+                    font-size: 22px;
+                    font-weight: 900;
+                }
+
+                .toast-box p {
+                    color: #64748b;
+                    margin-bottom: 22px;
+                    font-weight: 600;
+                }
+
+            .toast-actions {
+                display: flex;
+                justify-content: flex-end;
+                gap: 12px;
+            }
+
+            .cancel-btn {
+                background: #e2e8f0;
+                color: #0f172a;
+            }
+
+            @@keyframes popIn {
+                from {
+                    transform: scale(0.92);
+                    opacity: 0;
+                }
+
+                to {
+                    transform: scale(1);
+                    opacity: 1;
+                }
+            }
+
+            @@media (max-width: 1100px) {
+                .sidebar {
+                    position: relative;
+                    width: 100%;
+                    height: auto;
+                    overflow: visible;
+                }
+
+                .admin-page {
+                    flex-direction: column;
+                }
+
+                .main-content {
+                    margin-left: 0;
+                    width: 100%;
+                }
+
+                .search-box form {
+                    flex-direction: column;
+                }
+            }
+    </style>
+</head>
+
+<body>
+    <div class="admin-page">
+
+        <aside class="sidebar">
+            <div class="brand">
+                <img src="/images/logo.png" />
+                <h2>ExpenseEZ</h2>
+                <p>Admin Panel</p>
+            </div>
+
+            <a class="nav-link" href="/Admin/Dashboard">📊 Dashboard</a>
+            <a class="nav-link" href="/Admin/Dashboard#users">👥 Manage Users</a>
+            <a class="nav-link" href="/Admin/Dashboard#roles">🛡️ Assign Roles</a>
+            <a class="nav-link" href="/Admin/Dashboard#departments">🏢 Manage Departments</a>
+            <a class="nav-link" href="/Admin/Dashboard#categories">📂 Configure Expense Categories</a>
+            <a class="nav-link" href="/Admin/Dashboard#budgets">💰 Set Budget Limits</a>
+            <a class="nav-link" href="/Admin/Dashboard#logs">🧾 View Audit Logs</a>
+            <a class="nav-link" href="/Admin/Records">📋 Display Records</a>
+            <a class="nav-link active" href="/Admin/Archive">🗃️ Archive</a>
+
+          
+            <a class="nav-link logout" href="/Account/Login">🚪 Logout</a>
+        </aside>
+
+        <main class="main-content">
+
+            <div class="topbar">
+                <h1>Archive Records</h1>
+                <p>Restore archived records or delete them permanently from the system.</p>
+            </div>
+
+            <div class="search-box">
+                <form method="get" action="/Admin/Archive">
+                    <input name="search" value="@search" placeholder="Search archived records..." />
+                    <button type="submit">Search</button>
+                    <a class="btn reset" href="/Admin/Archive">Reset</a>
+                </form>
+            </div>
+
+            <div class="panel">
+                <h2>Archived Users</h2>
+
+                @if (!users.Any())
+                {
+                    <p class="empty">No archived users found.</p>
+                }
+                else
+                {
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Role</th>
+                                <th>Department</th>
+                                <th>Archived At</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var user in users)
+                            {
+                                <tr>
+                                    <td>@user.Name</td>
+                                    <td>@user.Role</td>
+                                    <td>@user.Department</td>
+                                    <td>@user.ArchivedAt?.ToString("MMM dd, yyyy hh:mm tt")</td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <a class="btn restore" href="/Admin/Restore?type=User&id=@user.Id">Restore</a>
+                                            <button class="btn danger" onclick="showDeleteToast('User', '@user.Id', '@user.Name')">
+                                                Delete Completely
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+
+            <div class="panel">
+                <h2>Archived Departments</h2>
+
+                @if (!departments.Any())
+                {
+                    <p class="empty">No archived departments found.</p>
+                }
+                else
+                {
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Department</th>
+                                <th>Archived At</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var department in departments)
+                            {
+                                <tr>
+                                    <td>@department.Name</td>
+                                    <td>@department.ArchivedAt?.ToString("MMM dd, yyyy hh:mm tt")</td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <a class="btn restore" href="/Admin/Restore?type=Department&id=@department.Id">Restore</a>
+                                            <button class="btn danger" onclick="showDeleteToast('Department', '@department.Id', '@department.Name')">
+                                                Delete Completely
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+
+            <div class="panel">
+                <h2>Archived Categories</h2>
+
+                @if (!categories.Any())
+                {
+                    <p class="empty">No archived categories found.</p>
+                }
+                else
+                {
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Archived At</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var category in categories)
+                            {
+                                <tr>
+                                    <td>@category.Name</td>
+                                    <td>@category.ArchivedAt?.ToString("MMM dd, yyyy hh:mm tt")</td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <a class="btn restore" href="/Admin/Restore?type=Category&id=@category.Id">Restore</a>
+                                            <button class="btn danger" onclick="showDeleteToast('Category', '@category.Id', '@category.Name')">
+                                                Delete Completely
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+
+            <div class="panel">
+                <h2>Archived Budgets</h2>
+
+                @if (!budgets.Any())
+                {
+                    <p class="empty">No archived budgets found.</p>
+                }
+                else
+                {
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Department</th>
+                                <th>Amount</th>
+                                <th>Archived At</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var budget in budgets)
+                            {
+                                <tr>
+                                    <td>@budget.Department</td>
+                                    <td>₱@budget.Amount.ToString("N2")</td>
+                                    <td>@budget.ArchivedAt?.ToString("MMM dd, yyyy hh:mm tt")</td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <a class="btn restore" href="/Admin/Restore?type=Budget&id=@budget.Id">Restore</a>
+                                            <button class="btn danger" onclick="showDeleteToast('Budget', '@budget.Id', '@budget.Department')">
+                                                Delete Completely
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+
+        </main>
+    </div>
+
+    <div id="deleteToast" class="toast-overlay">
+        <div class="toast-box">
+            <h3>Delete Permanently?</h3>
+            <p id="toastMessage">This action cannot be undone.</p>
+
+            <div class="toast-actions">
+                <button class="btn cancel-btn" onclick="hideDeleteToast()">Cancel</button>
+                <a id="confirmDeleteBtn" class="btn danger" href="#">Delete Completely</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+            function showDeleteToast(type, id, name) {
+                document.getElementById("toastMessage").innerText =
+                    "Are you sure you want to permanently delete " + name + "? This action cannot be undone.";
+
+                document.getElementById("confirmDeleteBtn").href =
+                    "/Admin/DeletePermanent?type=" + type + "&id=" + id;
+
+                document.getElementById("deleteToast").style.display = "flex";
+            }
+
+            function hideDeleteToast() {
+                document.getElementById("deleteToast").style.display = "none";
+            }
+    </script>
+</body>
+</html>

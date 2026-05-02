@@ -1,0 +1,328 @@
+﻿@model List<ExpenseEZ.Models.User>
+
+@{
+    ViewData["Title"] = "Assign Roles - ExpenseEZ";
+}
+
+<div class="assign-page">
+
+    <div class="page-header">
+        <div>
+            <h1>Assign Roles</h1>
+            <p>Manage user access levels by assigning the correct role to each active user.</p>
+        </div>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="toast-success">
+            @TempData["Success"]
+        </div>
+    }
+
+    <div class="role-card">
+
+        <div class="card-top">
+            <div>
+                <h2>User Role Assignment</h2>
+                <p>Only active users are shown here.</p>
+            </div>
+
+            <form method="get" asp-action="AssignRoles" class="search-box">
+                <input type="text"
+                       name="search"
+                       value="@ViewBag.Search"
+                       placeholder="Search name, role, department, or status..." />
+                <button type="submit">Search</button>
+                <a asp-action="AssignRoles" class="clear-btn">Clear</a>
+            </form>
+        </div>
+
+        @if (Model == null || !Model.Any())
+        {
+            <div class="empty-state">
+                <h3>No users found</h3>
+                <p>Add users first in Manage Users, then they will appear here for role assignment.</p>
+            </div>
+        }
+        else
+        {
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Department</th>
+                            <th>Status</th>
+                            <th>Current Role</th>
+                            <th>Assign New Role</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var user in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="avatar">
+                                            @(string.IsNullOrEmpty(user.Name) ? "U" : user.Name.Substring(0, 1).ToUpper())
+                                        </div>
+                                        <div>
+                                            <strong>@user.Name</strong>
+                                            <span>User ID: @user.Id</span>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td>@user.Department</td>
+
+                                <td>
+                                    <span class="status-badge">
+                                        @(string.IsNullOrEmpty(user.Status) ? "Active" : user.Status)
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <span class="role-badge">@user.Role</span>
+                                </td>
+
+                                <td>
+                                    <form method="post" asp-action="UpdateRole" class="role-form">
+                                        <input type="hidden" name="id" value="@user.Id" />
+
+                                        <select name="role">
+                                            <option value="Employee" selected="@(user.Role == "Employee")">Employee</option>
+                                            <option value="Manager" selected="@(user.Role == "Manager")">Manager</option>
+                                            <option value="Finance" selected="@(user.Role == "Finance")">Finance</option>
+                                            <option value="Admin" selected="@(user.Role == "Admin")">Admin</option>
+                                        </select>
+
+                                        <button type="submit">Update</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .assign-page {
+        padding: 30px;
+        background: #eef4fb;
+        min-height: 100vh;
+    }
+
+    .page-header {
+        background: linear-gradient(135deg, #0f4fa8, #123c73);
+        color: white;
+        padding: 30px;
+        border-radius: 24px;
+        margin-bottom: 22px;
+        box-shadow: 0 14px 35px rgba(15, 79, 168, 0.25);
+    }
+
+        .page-header h1 {
+            margin: 0;
+            font-size: 34px;
+            font-weight: 800;
+        }
+
+        .page-header p {
+            margin: 8px 0 0;
+            opacity: 0.9;
+        }
+
+    .toast-success {
+        background: #dcfce7;
+        color: #166534;
+        padding: 14px 18px;
+        border-radius: 14px;
+        font-weight: 700;
+        margin-bottom: 18px;
+        border: 1px solid #bbf7d0;
+    }
+
+    .role-card {
+        background: white;
+        border-radius: 24px;
+        padding: 26px;
+        box-shadow: 0 12px 35px rgba(0,0,0,0.06);
+    }
+
+    .card-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 24px;
+    }
+
+        .card-top h2 {
+            margin: 0;
+            color: #0f172a;
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .card-top p {
+            margin: 6px 0 0;
+            color: #64748b;
+        }
+
+    .search-box {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+        .search-box input {
+            width: 330px;
+            padding: 12px 14px;
+            border-radius: 14px;
+            border: 1px solid #dbe3ef;
+            outline: none;
+        }
+
+        .search-box button,
+        .role-form button {
+            border: none;
+            background: #0f4fa8;
+            color: white;
+            padding: 12px 16px;
+            border-radius: 14px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+    .clear-btn {
+        text-decoration: none;
+        color: #0f4fa8;
+        font-weight: 700;
+        padding: 12px 14px;
+        border-radius: 14px;
+        background: #e7f0ff;
+    }
+
+    .table-wrap {
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th {
+        background: #f8fafc;
+        color: #475569;
+        text-align: left;
+        padding: 16px;
+        font-size: 14px;
+    }
+
+    td {
+        padding: 16px;
+        border-bottom: 1px solid #edf2f7;
+        color: #1e293b;
+    }
+
+    .user-cell {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+        .user-cell strong {
+            display: block;
+            color: #0f172a;
+        }
+
+        .user-cell span {
+            font-size: 13px;
+            color: #64748b;
+        }
+
+    .avatar {
+        width: 42px;
+        height: 42px;
+        border-radius: 14px;
+        background: #0f4fa8;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+    }
+
+    .role-badge {
+        background: #e7f0ff;
+        color: #0f4fa8;
+        padding: 8px 12px;
+        border-radius: 999px;
+        font-weight: 800;
+        font-size: 13px;
+    }
+
+    .status-badge {
+        background: #dcfce7;
+        color: #166534;
+        padding: 8px 12px;
+        border-radius: 999px;
+        font-weight: 800;
+        font-size: 13px;
+    }
+
+    .role-form {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+        .role-form select {
+            min-width: 150px;
+            padding: 11px 14px;
+            border-radius: 14px;
+            border: 1px solid #dbe3ef;
+            outline: none;
+        }
+
+    .empty-state {
+        background: #f8fafc;
+        border: 1px dashed #cbd5e1;
+        padding: 28px;
+        border-radius: 18px;
+        text-align: center;
+        color: #64748b;
+    }
+
+        .empty-state h3 {
+            margin: 0 0 8px;
+            color: #0f172a;
+        }
+
+    @@media (max-width: 900px) {
+        .card-top {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .search-box {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+            .search-box input {
+                width: 100%;
+            }
+
+        .role-form {
+            flex-direction: column;
+            align-items: stretch;
+        }
+    }
+</style>

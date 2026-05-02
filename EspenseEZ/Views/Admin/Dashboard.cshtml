@@ -1,253 +1,59 @@
-﻿@{
+﻿@using ExpenseEZ.Models
+@{
     ViewData["Title"] = "Admin Dashboard - ExpenseEZ";
+    Layout = null;
+
+    var users = ViewBag.Users as List<User> ?? new List<User>();
+    var departments = ViewBag.Departments as List<Department> ?? new List<Department>();
+    var categories = ViewBag.Categories as List<Category> ?? new List<Category>();
+    var budgets = ViewBag.Budgets as List<Budget> ?? new List<Budget>();
+    var logs = ViewBag.Logs as List<AuditLog> ?? new List<AuditLog>();
 }
 
-<div class="admin-page">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - ExpenseEZ</title>
 
-    <aside class="sidebar">
-        <div class="brand">
-            <img src="/images/logo.png" />
-            <h2>ExpenseEZ</h2>
-            <p>Admin Panel</p>
-        </div>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-        <a class="nav-link active">📊 Dashboard</a>
-        <a class="nav-link">👥 Manage Users</a>
-        <a class="nav-link">🏢 Departments</a>
-        <a class="nav-link">📂 Expense Categories</a>
-        <a class="nav-link">💰 Budget Limits</a>
-        <a class="nav-link">🧾 Audit Logs</a>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #eef4fb;
+            color: #0f172a;
+        }
 
-        <div class="sidebar-card">
-            <h4>System Status</h4>
-            <p>All modules are running smoothly.</p>
-            <span>Online</span>
-        </div>
+        .admin-page {
+            min-height: 100vh;
+            display: flex;
+        }
 
-        <a class="nav-link logout">🚪 Logout</a>
-    </aside>
+        .sidebar {
+            width: 285px;
+            background: linear-gradient(180deg, #052f73, #0f5fc4);
+            color: white;
+            padding: 22px;
+            position: fixed;
+            height: 100vh;
+            left: 0;
+            top: 0;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 8px 0 25px rgba(15, 23, 42, 0.18);
+            z-index: 10;
+        }
 
-    <main class="main-content">
-
-        <header class="topbar">
-            <div>
-                <h1>Admin Dashboard</h1>
-                <p>Manage users, roles, departments, budgets, and system activity.</p>
-            </div>
-
-            <div class="admin-profile">
-                <span class="notification">🔔</span>
-                <div class="profile-text">
-                    <strong>Admin</strong>
-                    <small>System Administrator</small>
-                </div>
-                <div class="avatar">A</div>
-            </div>
-        </header>
-
-        <section class="summary-banner">
-            <div>
-                <h2>ExpenseEZ System Overview</h2>
-                <p>Monitor platform activity, user records, financial setup, and audit trail in one centralized dashboard.</p>
-            </div>
-            <button>Generate Report</button>
-        </section>
-
-        <section class="cards">
-            <div class="stat-card">
-                <div class="icon blue">👥</div>
-                <div>
-                    <h3>128</h3>
-                    <p>Total Users</p>
-                    <small>+12 this month</small>
-                </div>
-            </div>
-
-            <div class="stat-card">
-                <div class="icon green">🏢</div>
-                <div>
-                    <h3>8</h3>
-                    <p>Departments</p>
-                    <small>Active departments</small>
-                </div>
-            </div>
-
-            <div class="stat-card">
-                <div class="icon orange">📂</div>
-                <div>
-                    <h3>15</h3>
-                    <p>Categories</p>
-                    <small>Expense types</small>
-                </div>
-            </div>
-
-            <div class="stat-card">
-                <div class="icon red">🧾</div>
-                <div>
-                    <h3>342</h3>
-                    <p>Audit Logs</p>
-                    <small>Tracked actions</small>
-                </div>
-            </div>
-        </section>
-
-        <section class="dashboard-grid">
-
-            <div class="panel user-panel">
-                <div class="panel-header">
-                    <h2>User Management</h2>
-                    <button>Add User</button>
-                </div>
-
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Role</th>
-                            <th>Department</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Louise Micko Tabarno</td>
-                            <td>Admin</td>
-                            <td>Finance</td>
-                            <td><span class="status active-status">Active</span></td>
-                        </tr>
-                        <tr>
-                            <td>Juan Dela Cruz</td>
-                            <td>Employee</td>
-                            <td>IT Department</td>
-                            <td><span class="status active-status">Active</span></td>
-                        </tr>
-                        <tr>
-                            <td>Maria Santos</td>
-                            <td>Manager</td>
-                            <td>Accounting</td>
-                            <td><span class="status pending-status">Pending</span></td>
-                        </tr>
-                        <tr>
-                            <td>Carlos Reyes</td>
-                            <td>Finance Officer</td>
-                            <td>Operations</td>
-                            <td><span class="status active-status">Active</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="panel">
-                <div class="panel-header">
-                    <h2>System Modules</h2>
-                </div>
-
-                <div class="module-list">
-                    <div>✅ User and Role Management</div>
-                    <div>✅ Budget Control</div>
-                    <div>✅ Expense Categories</div>
-                    <div>✅ Audit Trail and Activity Log</div>
-                    <div>✅ Dashboard and Analytics</div>
-                    <div>✅ Reimbursement Monitoring</div>
-                </div>
-            </div>
-
-            <div class="panel">
-                <div class="panel-header">
-                    <h2>Recent Audit Logs</h2>
-                </div>
-
-                <div class="audit-item">
-                    <strong>Admin</strong> updated user role.
-                    <span>Today, 9:30 AM</span>
-                </div>
-
-                <div class="audit-item">
-                    <strong>Finance Officer</strong> processed reimbursement.
-                    <span>Today, 8:45 AM</span>
-                </div>
-
-                <div class="audit-item">
-                    <strong>Manager</strong> approved expense claim.
-                    <span>Yesterday, 4:20 PM</span>
-                </div>
-
-                <div class="audit-item">
-                    <strong>Employee</strong> submitted new claim.
-                    <span>Yesterday, 2:15 PM</span>
-                </div>
-            </div>
-
-            <div class="panel budget-panel">
-                <div class="panel-header">
-                    <h2>Budget Overview</h2>
-                </div>
-
-                <div class="budget-row">
-                    <span>IT Department</span>
-                    <div class="progress"><div style="width: 75%;"></div></div>
-                    <small>75% used</small>
-                </div>
-
-                <div class="budget-row">
-                    <span>Accounting</span>
-                    <div class="progress"><div style="width: 55%;"></div></div>
-                    <small>55% used</small>
-                </div>
-
-                <div class="budget-row">
-                    <span>Operations</span>
-                    <div class="progress"><div style="width: 40%;"></div></div>
-                    <small>40% used</small>
-                </div>
-
-                <div class="budget-row">
-                    <span>Finance</span>
-                    <div class="progress"><div style="width: 68%;"></div></div>
-                    <small>68% used</small>
-                </div>
-            </div>
-
-        </section>
-
-    </main>
-
-</div>
-
-<style>
-    * {
-        box-sizing: border-box;
-    }
-
-    body {
-        margin: 0;
-        font-family: 'Segoe UI', Arial, sans-serif;
-        background: #eef4fb;
-    }
-
-    .admin-page {
-        min-height: 100vh;
-        display: flex;
-    }
-
-    .sidebar {
-        width: 285px;
-        background: linear-gradient(180deg, #052f73, #0f5fc4);
-        color: white;
-        padding: 22px;
-        position: fixed;
-        height: 100vh;
-        left: 0;
-        top: 0;
-        display: flex;
-        flex-direction: column;
-        box-shadow: 8px 0 25px rgba(15, 23, 42, 0.18);
-    }
-
-    .brand {
-        text-align: center;
-        margin-bottom: 25px;
-    }
+        .brand {
+            text-align: center;
+            margin-bottom: 25px;
+        }
 
         .brand img {
             width: 165px;
@@ -258,27 +64,26 @@
         }
 
         .brand h2 {
-            margin: 5px 0 0;
             font-size: 24px;
+            margin-bottom: 3px;
         }
 
         .brand p {
-            margin: 3px 0 0;
-            opacity: 0.8;
+            opacity: 0.85;
             font-size: 14px;
         }
 
-    .nav-link {
-        display: block;
-        padding: 14px 16px;
-        margin-bottom: 9px;
-        border-radius: 14px;
-        color: white;
-        text-decoration: none;
-        font-weight: 700;
-        cursor: pointer;
-        transition: 0.25s;
-    }
+        .nav-link {
+            display: block;
+            padding: 14px 16px;
+            margin-bottom: 9px;
+            border-radius: 14px;
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.25s;
+        }
 
         .nav-link:hover,
         .nav-link.active {
@@ -286,16 +91,15 @@
             transform: translateX(5px);
         }
 
-    .sidebar-card {
-        background: rgba(255,255,255,0.16);
-        padding: 16px;
-        border-radius: 18px;
-        margin-top: auto;
-        margin-bottom: 15px;
-    }
+        .sidebar-card {
+            background: rgba(255,255,255,0.16);
+            padding: 16px;
+            border-radius: 18px;
+            margin-top: auto;
+            margin-bottom: 15px;
+        }
 
         .sidebar-card h4 {
-            margin: 0;
             font-size: 16px;
         }
 
@@ -314,136 +118,139 @@
             font-weight: 800;
         }
 
-    .logout {
-        background: rgba(255,255,255,0.14);
-    }
+        .logout {
+            background: rgba(255,255,255,0.14);
+        }
 
-    .main-content {
-        margin-left: 285px;
-        padding: 28px;
-        width: calc(100% - 285px);
-    }
+        .main-content {
+            margin-left: 285px;
+            padding: 28px;
+            width: calc(100% - 285px);
+        }
 
-    .topbar {
-        background: white;
-        padding: 22px 25px;
-        border-radius: 22px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 22px;
-        box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
-    }
+        .topbar {
+            background: white;
+            padding: 22px 25px;
+            border-radius: 22px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+        }
 
         .topbar h1 {
-            color: #0f172a;
             font-size: 31px;
-            margin: 0;
             font-weight: 900;
         }
 
         .topbar p {
-            margin: 7px 0 0;
+            margin-top: 7px;
             color: #64748b;
         }
 
-    .admin-profile {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-    }
+        .admin-profile {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
 
-    .notification {
-        background: #f1f5f9;
-        padding: 12px;
-        border-radius: 50%;
-        font-size: 20px;
-    }
+        .notification {
+            background: #f1f5f9;
+            padding: 12px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+        }
 
-    .profile-text {
-        text-align: right;
-    }
+        .profile-text {
+            text-align: right;
+        }
 
         .profile-text strong {
             display: block;
-            color: #0f172a;
         }
 
         .profile-text small {
             color: #64748b;
         }
 
-    .avatar {
-        width: 48px;
-        height: 48px;
-        background: linear-gradient(135deg, #0f5fc4, #16a34a);
-        border-radius: 50%;
-        color: white;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-weight: 900;
-        font-size: 20px;
-    }
+        .avatar {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #0f5fc4, #16a34a);
+            border-radius: 50%;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 900;
+            font-size: 20px;
+        }
 
-    .summary-banner {
-        background: linear-gradient(135deg, #0f5fc4, #16a34a);
-        color: white;
-        padding: 24px 28px;
-        border-radius: 24px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 22px;
-        box-shadow: 0 15px 30px rgba(15, 95, 196, 0.25);
-    }
+        .summary-banner {
+            background: linear-gradient(135deg, #0f5fc4, #16a34a);
+            color: white;
+            padding: 24px 28px;
+            border-radius: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+            box-shadow: 0 15px 30px rgba(15, 95, 196, 0.25);
+        }
 
         .summary-banner h2 {
-            margin: 0;
             font-size: 25px;
         }
 
         .summary-banner p {
-            margin: 8px 0 0;
+            margin-top: 8px;
             opacity: 0.9;
         }
 
-        .summary-banner button {
+        button,
+        .btn-link,
+        .danger-btn {
             border: none;
-            background: white;
-            color: #0f5fc4;
-            padding: 12px 18px;
-            border-radius: 14px;
+            text-decoration: none;
+            display: inline-block;
+            padding: 10px 15px;
+            border-radius: 12px;
             font-weight: 800;
             cursor: pointer;
+            color: white;
+            background: linear-gradient(135deg, #0f5fc4, #16a34a);
         }
 
-    .cards {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 18px;
-        margin-bottom: 22px;
-    }
+        .summary-banner button {
+            background: white;
+            color: #0f5fc4;
+        }
 
-    .stat-card {
-        background: white;
-        border-radius: 22px;
-        padding: 22px;
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
-        min-height: 125px;
-    }
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 22px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 22px;
+            padding: 22px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+            min-height: 125px;
+        }
 
         .stat-card h3 {
-            margin: 0;
             font-size: 30px;
-            color: #0f172a;
         }
 
         .stat-card p {
-            margin: 3px 0;
             color: #475569;
             font-weight: 800;
         }
@@ -453,123 +260,101 @@
             font-weight: 600;
         }
 
-    .icon {
-        width: 58px;
-        height: 58px;
-        border-radius: 18px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 27px;
-        flex-shrink: 0;
-    }
+        .icon {
+            width: 58px;
+            height: 58px;
+            border-radius: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 27px;
+            flex-shrink: 0;
+        }
 
-    .blue {
-        background: #dbeafe;
-    }
+        .blue { background: #dbeafe; }
+        .green { background: #dcfce7; }
+        .orange { background: #ffedd5; }
+        .red { background: #fee2e2; }
 
-    .green {
-        background: #dcfce7;
-    }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1.6fr 1fr;
+            gap: 22px;
+        }
 
-    .orange {
-        background: #ffedd5;
-    }
+        .panel {
+            background: white;
+            border-radius: 22px;
+            padding: 24px;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+            min-height: 295px;
+            margin-bottom: 22px;
+        }
 
-    .red {
-        background: #fee2e2;
-    }
-
-    .dashboard-grid {
-        display: grid;
-        grid-template-columns: 1.6fr 1fr;
-        gap: 22px;
-        align-items: stretch;
-    }
-
-    .panel {
-        background: white;
-        border-radius: 22px;
-        padding: 24px;
-        box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
-        min-height: 295px;
-    }
-
-    .user-panel {
-        min-height: 360px;
-    }
-
-    .panel-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 18px;
-    }
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
 
         .panel-header h2 {
-            margin: 0;
-            color: #0f172a;
             font-size: 20px;
             font-weight: 900;
         }
 
-        .panel-header button {
-            border: none;
-            background: linear-gradient(135deg, #0f5fc4, #16a34a);
-            color: white;
-            padding: 10px 15px;
-            border-radius: 12px;
-            font-weight: 800;
-            cursor: pointer;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow: hidden;
+            border-radius: 15px;
         }
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        overflow: hidden;
-        border-radius: 15px;
-    }
+        th {
+            text-align: left;
+            color: #475569;
+            padding: 14px;
+            background: #f1f5f9;
+            font-size: 14px;
+        }
 
-    th {
-        text-align: left;
-        color: #475569;
-        padding: 14px;
-        background: #f1f5f9;
-        font-size: 14px;
-    }
+        td {
+            padding: 15px 14px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #334155;
+            font-weight: 600;
+        }
 
-    td {
-        padding: 15px 14px;
-        border-bottom: 1px solid #e2e8f0;
-        color: #334155;
-        font-weight: 600;
-    }
+        tr:hover td {
+            background: #f8fafc;
+        }
 
-    tr:hover td {
-        background: #f8fafc;
-    }
+        .status {
+            padding: 7px 13px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 900;
+        }
 
-    .status {
-        padding: 7px 13px;
-        border-radius: 30px;
-        font-size: 12px;
-        font-weight: 900;
-    }
+        .active-status {
+            background: #dcfce7;
+            color: #15803d;
+        }
 
-    .active-status {
-        background: #dcfce7;
-        color: #15803d;
-    }
+        .pending-status {
+            background: #fef3c7;
+            color: #b45309;
+        }
 
-    .pending-status {
-        background: #fef3c7;
-        color: #b45309;
-    }
+        .inactive-status {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
 
-    .module-list {
-        display: grid;
-        gap: 11px;
-    }
+        .module-list {
+            display: grid;
+            gap: 11px;
+        }
 
         .module-list div {
             padding: 14px;
@@ -580,14 +365,14 @@
             font-weight: 800;
         }
 
-    .audit-item {
-        padding: 15px;
-        background: #f8fafc;
-        border-radius: 14px;
-        margin-bottom: 12px;
-        color: #334155;
-        border-left: 5px solid #16a34a;
-    }
+        .audit-item {
+            padding: 15px;
+            background: #f8fafc;
+            border-radius: 14px;
+            margin-bottom: 12px;
+            color: #334155;
+            border-left: 5px solid #16a34a;
+        }
 
         .audit-item span {
             display: block;
@@ -597,22 +382,22 @@
             font-weight: 600;
         }
 
-    .budget-row {
-        margin-bottom: 20px;
-    }
+        .budget-row {
+            margin-bottom: 20px;
+        }
 
         .budget-row span {
             font-weight: 900;
             color: #334155;
         }
 
-    .progress {
-        height: 12px;
-        background: #e2e8f0;
-        border-radius: 30px;
-        overflow: hidden;
-        margin: 9px 0;
-    }
+        .progress {
+            height: 12px;
+            background: #e2e8f0;
+            border-radius: 30px;
+            overflow: hidden;
+            margin: 9px 0;
+        }
 
         .progress div {
             height: 100%;
@@ -620,60 +405,535 @@
             border-radius: 30px;
         }
 
-    .budget-row small {
-        color: #64748b;
-        font-weight: 800;
-    }
+        .budget-row small {
+            color: #64748b;
+            font-weight: 800;
+        }
 
-    @@media (max-width: 1100px) {
-        .sidebar {
-            position: relative;
+        .content-section {
+            display: none;
+        }
+
+        .active-section {
+            display: block;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            margin-bottom: 22px;
+        }
+
+        .form-row input,
+        .form-row select {
+            padding: 13px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 14px;
+            font-weight: 700;
+            outline: none;
+            background: #f8fafc;
             width: 100%;
-            height: auto;
         }
 
-        .admin-page {
-            flex-direction: column;
+        .form-row input:focus,
+        .form-row select:focus {
+            border-color: #0f5fc4;
+            background: white;
         }
 
-        .main-content {
-            margin-left: 0;
-            width: 100%;
+        .danger-btn {
+            background: #ef4444;
         }
 
-        .cards {
-            grid-template-columns: repeat(2, 1fr);
+        .item-list {
+            display: grid;
+            gap: 12px;
         }
 
-        .dashboard-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .summary-banner {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 15px;
-        }
-    }
-
-    @@media (max-width: 650px) {
-        .main-content {
-            padding: 18px;
-        }
-
-        .topbar {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 15px;
-        }
-
-        .cards {
-            grid-template-columns: 1fr;
-        }
-
-        .admin-profile {
-            align-self: stretch;
+        .list-card {
+            background: #f8fafc;
+            border-left: 5px solid #0f5fc4;
+            padding: 16px;
+            border-radius: 14px;
+            display: flex;
             justify-content: space-between;
+            align-items: center;
         }
-    }
-</style>
+
+        .helper-text {
+            color: #64748b;
+            font-weight: 700;
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 14px;
+        }
+
+        @@media (max-width: 1100px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+
+            .admin-page {
+                flex-direction: column;
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .summary-banner {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
+
+        @@media (max-width: 650px) {
+            .main-content {
+                padding: 18px;
+            }
+
+            .topbar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-profile {
+                align-self: stretch;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-page">
+
+        <aside class="sidebar">
+            <div class="brand">
+                <img src="/images/logo.png" />
+                <h2>ExpenseEZ</h2>
+                <p>Admin Panel</p>
+            </div>
+
+            <a class="nav-link active" onclick="showSection('dashboard', this)">📊 Dashboard</a>
+            <a class="nav-link" onclick="showSection('users', this)">👥 Manage Users</a>
+            <a class="nav-link" onclick="showSection('roles', this)">🛡️ Assign Roles</a>
+            <a class="nav-link" onclick="showSection('departments', this)">🏢 Manage Departments</a>
+            <a class="nav-link" onclick="showSection('categories', this)">📂 Configure Expense Categories</a>
+            <a class="nav-link" onclick="showSection('budgets', this)">💰 Set Budget Limits</a>
+            <a class="nav-link" onclick="showSection('logs', this)">🧾 View Audit Logs</a>
+            <a class="nav-link" href="/Admin/Records">📋 Display Records</a>
+             <a class="nav-link" href="/Admin/Archive">🗃️ Archive</a>
+             
+
+          
+            <a class="nav-link logout" onclick="logout()">🚪 Logout</a>
+        </aside>
+
+        <main class="main-content">
+
+            <header class="topbar">
+                <div>
+                    <h1 id="pageTitle">Admin Dashboard</h1>
+                    <p id="pageSubtitle">Manage users, roles, departments, budgets, and system activity.</p>
+                </div>
+
+                <div class="admin-profile">
+                    <span class="notification" onclick="showNotification()">🔔</span>
+                    <div class="profile-text">
+                        <strong>Admin</strong>
+                        <small>System Administrator</small>
+                    </div>
+                    <div class="avatar">A</div>
+                </div>
+            </header>
+
+            <section id="dashboard" class="content-section active-section">
+
+                <section class="summary-banner">
+                    <div>
+                        <h2>ExpenseEZ System Overview</h2>
+                        <p>Monitor platform activity, user records, financial setup, and audit trail in one centralized dashboard.</p>
+                    </div>
+                    <button onclick="generateReport()">Generate Report</button>
+                </section>
+
+                <section class="cards">
+                    <div class="stat-card">
+                        <div class="icon blue">👥</div>
+                        <div>
+                            <h3>@users.Count</h3>
+                            <p>Total Users</p>
+                            <small>Registered accounts</small>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="icon green">🏢</div>
+                        <div>
+                            <h3>@departments.Count</h3>
+                            <p>Departments</p>
+                            <small>Active departments</small>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="icon orange">📂</div>
+                        <div>
+                            <h3>@categories.Count</h3>
+                            <p>Categories</p>
+                            <small>Expense types</small>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="icon red">🧾</div>
+                        <div>
+                            <h3>@logs.Count</h3>
+                            <p>Audit Logs</p>
+                            <small>Tracked actions</small>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="dashboard-grid">
+                    <div class="panel user-panel">
+                        <div class="panel-header">
+                            <h2>User Management Preview</h2>
+                            <button onclick="showSectionByName('users')">Manage Users</button>
+                        </div>
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Role</th>
+                                    <th>Department</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach (var user in users.Take(4))
+                                {
+                                    var statusClass = user.Status == "Active" ? "active-status" : user.Status == "Pending" ? "pending-status" : "inactive-status";
+
+                                    <tr>
+                                        <td>@user.Name</td>
+                                        <td>@user.Role</td>
+                                        <td>@user.Department</td>
+                                        <td><span class="status @statusClass">@user.Status</span></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h2>Admin Use Cases</h2>
+                        </div>
+
+                        <div class="module-list">
+                            <div>✅ Manage Users</div>
+                            <div>✅ Assign Roles</div>
+                            <div>✅ Manage Departments</div>
+                            <div>✅ Configure Expense Categories</div>
+                            <div>✅ Set Budget Limits</div>
+                            <div>✅ View Audit Logs</div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <section id="users" class="content-section">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h2>Manage Users</h2>
+                    </div>
+
+                    <form method="post" action="/Admin/AddUser">
+                        <div class="form-row">
+                            <input name="Name" placeholder="Full Name" required />
+
+                            <select name="Role">
+                                <option>Admin</option>
+                                <option>Employee</option>
+                                <option>Manager</option>
+                                <option>Finance Officer</option>
+                            </select>
+
+                            <select name="Department">
+                                @if (departments.Any())
+                                {
+                                    foreach (var department in departments)
+                                    {
+                                        <option>@department.Name</option>
+                                    }
+                                }
+                                else
+                                {
+                                    <option>No Department</option>
+                                }
+                            </select>
+
+                            <select name="Status">
+                                <option>Active</option>
+                                <option>Pending</option>
+                                <option>Inactive</option>
+                            </select>
+                        </div>
+
+                        <button type="submit">Add User</button>
+                    </form>
+
+                    <br />
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Role</th>
+                                <th>Department</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var user in users)
+                            {
+                                var statusClass = user.Status == "Active" ? "active-status" : user.Status == "Pending" ? "pending-status" : "inactive-status";
+
+                                <tr>
+                                    <td>@user.Name</td>
+                                    <td>@user.Role</td>
+                                    <td>@user.Department</td>
+                                    <td><span class="status @statusClass">@user.Status</span></td>
+                                    <td>
+    <a class="btn-link" href="/Admin/EditUser/@user.Id">Edit</a>
+    <a class="danger-btn" href="/Admin/DeleteUser/@user.Id" onclick="return confirm('Delete this user?')">Delete</a>
+</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="roles" class="content-section">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h2>Assign Roles</h2>
+                    </div>
+
+                    <p class="helper-text">
+                        Role assignment is handled through Manage Users. Delete and recreate the user with the correct role for now.
+                    </p>
+                </div>
+            </section>
+
+            <section id="departments" class="content-section">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h2>Manage Departments</h2>
+                    </div>
+
+                    <form method="post" action="/Admin/AddDepartment">
+                        <div class="form-row">
+                            <input name="Name" placeholder="Department Name" required />
+                        </div>
+
+                        <button type="submit">Add Department</button>
+                    </form>
+
+                    <br />
+
+                    <div class="item-list">
+                        @foreach (var department in departments)
+                        {
+                            <div class="list-card">
+                                <strong>@department.Name</strong>
+                                <a class="danger-btn" href="/Admin/DeleteDepartment/@department.Id" onclick="return confirm('Delete this department?')">Delete</a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </section>
+
+            <section id="categories" class="content-section">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h2>Configure Expense Categories</h2>
+                    </div>
+
+                    <form method="post" action="/Admin/AddCategory">
+                        <div class="form-row">
+                            <input name="Name" placeholder="Category Name" required />
+                        </div>
+
+                        <button type="submit">Add Category</button>
+                    </form>
+
+                    <br />
+
+                    <div class="item-list">
+                        @foreach (var category in categories)
+                        {
+                            <div class="list-card">
+                                <strong>@category.Name</strong>
+                                <a class="danger-btn" href="/Admin/DeleteCategory/@category.Id" onclick="return confirm('Delete this category?')">Delete</a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </section>
+
+            <section id="budgets" class="content-section">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h2>Set Budget Limits</h2>
+                    </div>
+
+                    <form method="post" action="/Admin/SaveBudget">
+                        <div class="form-row">
+                            <select name="Department">
+                                @if (departments.Any())
+                                {
+                                    foreach (var department in departments)
+                                    {
+                                        <option>@department.Name</option>
+                                    }
+                                }
+                                else
+                                {
+                                    <option>No Department</option>
+                                }
+                            </select>
+
+                            <input name="Amount" type="number" step="0.01" placeholder="Budget Amount" required />
+                        </div>
+
+                        <button type="submit">Save Budget</button>
+                    </form>
+
+                    <br />
+
+                    @foreach (var budget in budgets)
+                    {
+                        <div class="budget-row">
+                            <span>@budget.Department</span>
+                            <div class="progress">
+                                <div style="width: @(Math.Min((double)budget.Amount / 1000, 100))%;"></div>
+                            </div>
+                            <small>Budget Limit: ₱@budget.Amount.ToString("N2")</small>
+                        </div>
+                    }
+                </div>
+            </section>
+
+            <section id="logs" class="content-section">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h2>View Audit Logs</h2>
+                        <a class="danger-btn" href="/Admin/ClearLogs" onclick="return confirm('Clear all audit logs?')">Clear Logs</a>
+                    </div>
+
+                    <div id="auditList">
+                        @if (!logs.Any())
+                        {
+                            <p class="helper-text">No audit logs available.</p>
+                        }
+                        else
+                        {
+                            foreach (var log in logs)
+                            {
+                                <div class="audit-item">
+                                    <strong>System Activity</strong>
+                                    <span>@log.Action - @log.Date.ToString("MMM dd, yyyy hh:mm tt")</span>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        function showSection(sectionId, element) {
+            document.querySelectorAll(".content-section").forEach(section => {
+                section.classList.remove("active-section");
+            });
+
+            document.getElementById(sectionId).classList.add("active-section");
+
+            document.querySelectorAll(".nav-link").forEach(link => {
+                link.classList.remove("active");
+            });
+
+            if (element) element.classList.add("active");
+
+            const titles = {
+                dashboard: ["Admin Dashboard", "Manage users, roles, departments, budgets, and system activity."],
+                users: ["Manage Users", "Create, update, and remove user accounts."],
+                roles: ["Assign Roles", "Assign correct access level to each user."],
+                departments: ["Manage Departments", "Create and manage company departments."],
+                categories: ["Configure Expense Categories", "Set available expense claim categories."],
+                budgets: ["Set Budget Limits", "Control department budget limits."],
+                logs: ["View Audit Logs", "Review system activity and admin actions."]
+            };
+
+            document.getElementById("pageTitle").innerText = titles[sectionId][0];
+            document.getElementById("pageSubtitle").innerText = titles[sectionId][1];
+        }
+
+        function showSectionByName(sectionId) {
+            const links = document.querySelectorAll(".nav-link");
+
+            links.forEach(link => {
+                if (link.textContent.toLowerCase().includes("manage users")) {
+                    showSection(sectionId, link);
+                }
+            });
+        }
+
+        function showNotification() {
+            alert("You have audit log records in the Audit Logs section.");
+        }
+
+        function generateReport() {
+            alert("Report generation is ready for UI. PDF/Excel export can be added next.");
+        }
+
+        function logout() {
+            if (confirm("Are you sure you want to logout?")) {
+                window.location.href = "/Account/Login";
+            }
+        }
+    </script>
+</body>
+</html>
