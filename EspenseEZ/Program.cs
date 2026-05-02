@@ -1,4 +1,4 @@
-using ExpenseEZ.Data;
+using EspenseEZ.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
